@@ -16,7 +16,7 @@ if ($SqlResult->rowCount() >= 1){
     $SqlFetch = $SqlResult->fetch();
     $res['UserName'] = $SqlFetch['nickname'];
     $res['HashId'] = md5(md5($SqlFetch['id']));
-
+    $res['UserAvatar'] = $SqlFetch['avatar'];
 } else {
     $res['status'] = 1;
     $res['message'] = 'Авторизация не прошла';

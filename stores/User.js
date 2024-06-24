@@ -1,23 +1,37 @@
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 export const useUserStore = defineStore('UserStore', {
     state: () => ({
         User: {
             UserId: '',
-            UserName: ''
+            UserName: '',
+            UserAvatar: ''
         }
     }),
     actions: {
         LogUser(UserData){
             try{
                 const config = useRuntimeConfig()
-                $fetch(config.public.Backend + 'login.php', {
+                const $toast = useToast();
+                $fetch(config.public.Backend + 'backend/login.php', {
                     method: 'POST',
                     body: UserData
                 }).then((res) => {
                     if (res.status == 0){
                         this.User.UserId = res.HashId
                         this.User.UserName = res.UserName
+                        this.User.UserAvatar = res.UserAvatar
+                        $toast.success('Авторизация прошла успешно', {
+                            position: 'top-right'
+                        })
+                        setTimeout(() => {
+                            navigateTo('/anime')
+                        }, 200)
+                        
                     } else {
-                        console.log('Такого аккаунта не существует')
+                        $toast.warning('Такого пользователя не существует', {
+                            position: 'top-right'
+                        })
                     }
                 })
                 .catch((err) => {

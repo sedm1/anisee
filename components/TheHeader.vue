@@ -14,7 +14,7 @@
                 </ul>
             </nav>
             <NuxtLink class="header__profile" v-if="UserStore.USER.UserId" to="/">
-                <!-- <div class="header__profile-icon"><img :src="this.OWNBACK + 'photo/' + this.USER.UserAvatar" alt="UserAvatar"></div> -->
+                <div class="header__profile-icon"><img :src="useRuntimeConfig().public.Backend + 'photo/' + UserStore.USER.UserAvatar" alt="UserAvatar"></div>
                 <div class="header__profile-info">
                     <h3 class="header__profile-name">{{ UserStore.USER.UserName }}</h3>
                 </div>

@@ -14,8 +14,9 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      Backend: 'http://anisee-nuxt:81/server/backend/',
-      AnimeApi: 'https://api.anilibria.tv/v3/'
+      Backend: 'http://anisee-nuxt:81/server/',
+      AnimeApi: 'https://api.anilibria.tv/v3/',
+      AnimeStaticApi: 'https://static-libria.weekstorm.one/'
     }
   },
   routeRules: {

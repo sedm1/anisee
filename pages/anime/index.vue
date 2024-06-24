@@ -13,11 +13,11 @@
                         class="main__search-input"
                         v-model="AnimeSearch"
                         >
-                        <button @click='this.SearchAnimeWithTitle()' class="main__search-button"><img src="@/assets/img/search.svg" alt="Search"></button>
+                        <button @click='SearchAnimeWithTitle()' class="main__search-button"><img src="@/assets/img/search.svg" alt="Search"></button>
                     </div>
                     <div class="anime__block">
                         <VAnimeCard
-                        v-for="AnimeItem in AnimeStore.ANIME"
+                        v-for="AnimeItem in AnimeBlock"
                         :key = 'AnimeItem.id'
                         :AnimeItem = 'AnimeItem'
                         >
@@ -34,15 +34,26 @@ import {useAnimeStore} from '@/stores/Anime'
 useHead({
     title: "Все аниме"
 })
-
 const AnimeStore = useAnimeStore()
-let AnimeSearch = ref('')
+AnimeStore.GET_ALL_ANIME_FROM_DB()
 
-onMounted(() => {
-    nextTick(() => {
-        AnimeStore.GET_ALL_ANIME_FROM_DB()
-    })
+let AnimeSearch = ref('')
+AnimeStore.SearchingAnime = []
+
+const AnimeBlock = computed(() => {
+    if (AnimeStore.SearchingAnime.length > 0){
+        return AnimeStore.SearchingAnime
+    }
+    return AnimeStore.ANIME
+    
 })
+watch(AnimeSearch, (to) => {
+    AnimeStore.GET_ANIME_FROM_TITLE(to)
+})
+function SearchAnimeWithTitle(){
+    AnimeStore.GET_ANIME_FROM_TITLE(AnimeSearch.value)
+}
+
 </script>
 <style lang="sass" scoped>
 .main

@@ -5,7 +5,7 @@
         <main v-else>
             <section class="main">
                 <div class="container">
-                    <div class="main__img"><img :src="`https://static-libria.weekstorm.one/${AnimeStore.CurrentAnime.posters.medium.url}`" alt="MainImg"></div>
+                    <div class="main__img"><img :src="`${useRuntimeConfig().public.AnimeStaticApi}${AnimeStore.CurrentAnime.posters.medium.url}`" alt="MainImg"></div>
                     <div class="main__info">
                         <h1 class="main__title">{{AnimeStore.CurrentAnime.names.ru }}</h1>
                         <h3 class="main__subtitle">Описание:</h3>
@@ -21,12 +21,20 @@
                         </div>
                         <h3 class="main__subtitle">Франшина</h3>
                         <div class="main__franchies">
-                            
+                            <NuxtLink
+                            v-for="FranchisesItem in CurrentFranshies"
+                            :key="FranchisesItem.id"
+                            :to="`../anime/${FranchisesItem.code}`"
+                            class="main__franchies-item"
+                            >
+                                <div class="main__franchies-img"><img :src="`${useRuntimeConfig().public.AnimeStaticApi}${FranchisesItem.posters.original.url}`" alt="MainImg"></div>
+                                <h3 class="main__franchies-title">{{ FranchisesItem.names.ru }}</h3>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="video">
+            <!-- <section class="video">
                 <div class="container">
                     <h2 class="section__title">Смотерть аниме</h2>
                     
@@ -53,7 +61,7 @@
                     
                 </div>
                 
-            </section>
+            </section> -->
         </main>
     </div>
 </template>
@@ -73,9 +81,21 @@ onBeforeUnmount(() => {
 })
 
 
-function SeriesChange(newSeries){
-    ActiveSeries.value = newSeries
-}
+// function SeriesChange(newSeries){
+//     ActiveSeries.value = newSeries
+// }
+const CurrentFranshies = computed(() => {
+    AnimeStore.CurrentAnimeFranshies = []
+    if (AnimeStore.CurrentAnime?.franchises.length == 0){
+        return []
+    }
+    let FranchisesAnime = AnimeStore.CurrentAnime.franchises[0].releases
+    for (let i = 0; i < FranchisesAnime.length; i++){
+        AnimeStore.GET_ANIME_FRANSHIES_INFO_FROM_CODE(FranchisesAnime[i].code)
+    }
+    return AnimeStore.CurrentAnimeFranshies
+})
+
 // function QualityChange(newQuality){
 //     switch (newQuality) {
 //         case 'SD':
@@ -123,7 +143,7 @@ function SeriesChange(newSeries){
     .container
         display: flex
         align-items: flex-start
-        gap: 20px
+        gap: 100px
     &__img
         max-width: 400px
         width: 100%
@@ -136,7 +156,7 @@ function SeriesChange(newSeries){
     &__subtitle
         font-size: 16px
         font-weight: 600
-        margin-bottom: 5px
+        margin-bottom: 10px
         margin-top: 20px
     &__descript
         font-size: 14px
@@ -152,6 +172,15 @@ function SeriesChange(newSeries){
             border-radius: 5px
             font-size: 14px
             border: 1px solid $white 
+    &__franchies
+        display: grid
+        grid-template-columns: repeat(6, 1fr)
+        gap: 20px
+        &-img 
+            margin-bottom: 5px
+        &-title 
+            font-size: 14px
+            font-weight: 400
 .video
     &__player
         max-width: 100%
