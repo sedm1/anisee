@@ -10,11 +10,14 @@
                     <li class="header__menu-item"><NuxtLink to="/Anime">Все аниме</NuxtLink></li>
                     <li class="header__menu-item"><a href="#">Страница 2</a></li>
                     <li class="header__menu-item"><a href="#">Страница 3</a></li>
-                    <li class="header__menu-item"><a href="#">Страница 4</a></li>
+                    <li class="header__menu-item">
+                        <NuxtLink to="/favorites">Избранное</NuxtLink>
+                        <div class="header__menu-count">{{ UserStore.Favorites.length }}</div>
+                    </li>
                 </ul>
             </nav>
             <NuxtLink class="header__profile" v-if="UserStore.USER.UserId" to="/">
-                <div class="header__profile-icon"><img :src="useRuntimeConfig().public.Backend + 'photo/' + UserStore.USER.UserAvatar" alt="UserAvatar"></div>
+                <div class="header__profile-icon"><img :src="useRuntimeConfig().public.Backend + '/photo/' + UserStore.USER.UserAvatar" alt="UserAvatar"></div>
                 <div class="header__profile-info">
                     <h3 class="header__profile-name">{{ UserStore.USER.UserName }}</h3>
                 </div>
@@ -101,4 +104,18 @@ header
             &:hover 
                 &::before 
                     width: 100%
+        &-count 
+            position: absolute
+            z-index: 1
+            top: -10px
+            right: -20px
+            font-size: 14px
+            background: $blue
+            width: 20px
+            height: 20px
+            display: flex
+            align-items: center
+            justify-content: center
+            border-radius: 100%
+            padding-bottom: 2px
 </style>

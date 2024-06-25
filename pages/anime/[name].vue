@@ -5,7 +5,23 @@
         <main v-else>
             <section class="main">
                 <div class="container">
-                    <div class="main__img"><img :src="`${useRuntimeConfig().public.AnimeStaticApi}${AnimeStore.CurrentAnime.posters.medium.url}`" alt="MainImg"></div>
+                    <div class="main__img-block">
+                        <div class="main__img">
+                            <img :src="`${useRuntimeConfig().public.AnimeStaticApi}${AnimeStore.CurrentAnime.posters.medium.url}`" alt="MainImg">
+                        </div>
+                        <button 
+                        class="main__img-button main__img-button-active" 
+                        v-if="UserStore.Favorites.includes(AnimeStore.CurrentAnime.id)"
+                        @click="DeleteAnimeFromFavorites()"
+                        >В избранном</button>
+                        <button 
+                        class="main__img-button" 
+                        v-else
+                        @click="SetAnimeToFavorites()"
+                        >Добавить в избранное <img src="@/assets/img/favorites.svg" alt="favoritesIcon"></button>
+                        
+                    </div>
+                    
                     <div class="main__info">
                         <h1 class="main__title">{{AnimeStore.CurrentAnime.names.ru }}</h1>
                         <h3 class="main__subtitle">Описание:</h3>
@@ -19,7 +35,7 @@
                             :key="index"
                             >{{ MainCategories }}</router-link>
                         </div>
-                        <h3 class="main__subtitle">Франшина</h3>
+                        <h3 class="main__subtitle" v-if="CurrentFranshies.length > 0">Франшиза</h3>
                         <div class="main__franchies">
                             <NuxtLink
                             v-for="FranchisesItem in CurrentFranshies"
@@ -34,46 +50,24 @@
                     </div>
                 </div>
             </section>
-            <!-- <section class="video">
+            <section class="video">
                 <div class="container">
-                    <h2 class="section__title">Смотерть аниме</h2>
-                    
-                    <div class="video__player">
-                        <div class="video__setting">
-                            <div class="video__setting-item">
-                                <h3 class="main__subtitle">Серия</h3>
-                                <VCustomSelect 
-                                :options="GetListOfSeries"
-                                @InputChange="SeriesChange"
-                                :default="'1'">
-                                </VCustomSelect>
-                            </div>
-                            <div class="video__setting-item">
-                                <h3 class="main__subtitle">Качество</h3>
-                                <VCustomSelect 
-                                :options="GetQualityOfVideo"
-                                @InputChange="QualityChange"
-                                :default="'Full Hd'">
-                                </VCustomSelect>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    <h2 class="section__title">Смотреть аниме</h2>
+                    <VideoPlayer
+                    :VideoItem="AnimeStore.CurrentAnime"
+                    ></VideoPlayer>
                 </div>
                 
-            </section> -->
+            </section>
         </main>
     </div>
 </template>
 <script setup>
 import {useAnimeStore} from '@/stores/Anime'
+import { useUserStore } from '@/stores/User';
 const AnimeStore = useAnimeStore()
+const UserStore = useUserStore()
 const route = useRoute()
-
-
-let ActiveSeries =  ref(1)
-let ActiveQuality = ref('fhd')
-let IsAnimeActive = ref(false)
 
 AnimeStore.GET_ANIME_FROM_CODE(route.params.name)
 onBeforeUnmount(() => {
@@ -81,9 +75,6 @@ onBeforeUnmount(() => {
 })
 
 
-// function SeriesChange(newSeries){
-//     ActiveSeries.value = newSeries
-// }
 const CurrentFranshies = computed(() => {
     AnimeStore.CurrentAnimeFranshies = []
     if (AnimeStore.CurrentAnime?.franchises.length == 0){
@@ -96,46 +87,14 @@ const CurrentFranshies = computed(() => {
     return AnimeStore.CurrentAnimeFranshies
 })
 
-// function QualityChange(newQuality){
-//     switch (newQuality) {
-//         case 'SD':
-//             ActiveQuality.value = 'sd'
-//             break
-//         case 'HD':
-//             ActiveQuality.value = 'hd'
-//             break
-//         case 'Full Hd':
-//             ActiveQuality.value = 'fhd'
-//             break
-//     }
-    
-// }
-// function GetListOfSeries(){
-//     let list = []
-//     for (let i = 1; i <= ANIMEFROMPAGE.player.episodes.last; i++){
-//         list.push(i)
-//     }
-//     return list
-// }
-
-// function GetQualityOfVideo(){
-//     let qualitis = []
-//     let qualitisArray = Object.entries(ANIMEFROMPAGE.player.list[ActiveSeries].hls)
-//     for (let qualitisArrayItem of  qualitisArray){
-//         switch (qualitisArrayItem[0]) {
-//             case 'sd':
-//                 qualitis.push('SD')
-//                 break
-//             case 'hd':
-//                 qualitis.push('HD')
-//                 break
-//             case 'fhd':
-//                 qualitis.push('Full Hd')
-//                 break
-//         }
-//     }
-//     return qualitis
-// }
+function SetAnimeToFavorites(){
+    let id = AnimeStore.CurrentAnime.id
+    UserStore.SetAnimeToFavorites(id)
+}
+function DeleteAnimeFromFavorites(){
+    let id = AnimeStore.CurrentAnime.id
+    UserStore.DeleteAnimeFromFavorites(id)
+}
 </script>
 <style lang="sass" scoped>
 .main
@@ -145,8 +104,27 @@ const CurrentFranshies = computed(() => {
         align-items: flex-start
         gap: 100px
     &__img
-        max-width: 400px
-        width: 100%
+        &-block
+            max-width: 400px
+            width: 100%
+        &-button 
+            margin-top: 10px
+            display: flex
+            align-items: center
+            gap: 20px
+            width: 100%
+            border: 1px solid $blue 
+            border-radius: 10px
+            justify-content: center
+            color: $blue 
+            font-weight: 600
+            font-size: 16px
+            padding: 10px 0px
+            img
+                width: 30px
+            &-active 
+                background: $blue 
+                color: $white
     &__info
         max-width: 940px
         width: 100%

@@ -6,14 +6,15 @@ export const useUserStore = defineStore('UserStore', {
             UserId: '',
             UserName: '',
             UserAvatar: ''
-        }
+        },
+        Favorites: []
     }),
     actions: {
         LogUser(UserData){
             try{
                 const config = useRuntimeConfig()
                 const $toast = useToast();
-                $fetch(config.public.Backend + 'backend/login.php', {
+                $fetch(config.public.Backend + '/backend/login.php', {
                     method: 'POST',
                     body: UserData
                 }).then((res) => {
@@ -46,6 +47,20 @@ export const useUserStore = defineStore('UserStore', {
         },
         RegUser(UserData){
             console.log(UserData)
+        },
+        SetAnimeToFavorites(AnimeId){
+            const $toast = useToast();
+            this.Favorites.push(AnimeId)
+            $toast.success('Аниме добавлено в избранное', {
+                position: 'top-right'
+            })
+        },
+        DeleteAnimeFromFavorites(AnimeId){
+            const $toast = useToast();
+            this.Favorites = this.Favorites.filter((FavoritesAnimeId) => FavoritesAnimeId !== AnimeId);
+            $toast.success('Аниме было удалено', {
+                position: 'top-right'
+            })
         }
     },
     getters: {
