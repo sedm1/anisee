@@ -18,6 +18,14 @@
                 
             </div>
         </section>
+        <section class="video">
+            <div class="container">
+                <h2 class="section__title">Смотреть онлайн</h2>
+                <LazyLayoutVideoPlayer
+                :AnimeData="AnimeStore.CurrentAnime.player"
+                />
+            </div>
+        </section>
     </main>
 </template>
 <script setup>
