@@ -17,8 +17,5 @@ export default defineNuxtConfig({
       AnimeApi: 'https://api.anilibria.tv/v3',
       AnimeStaticApi: 'https://static-libria.weekstorm.one'
     }
-  },
-  typescript: {
-    typeCheck: true
   }
 })

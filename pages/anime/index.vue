@@ -17,8 +17,8 @@
                     <AnimeBLock :AnimeList="AnimeStore.AllAnime"/>
                     <UiVPagination 
                     :paginationData="AnimeStore.Pagination"
-                    @RouteToPrevPage="RouteToNewpage(Number(Route.query.page)-1)"
-                    @RouteToNextPage="RouteToNewpage(Number(Route.query.page)+1)"
+                    @RouteToPrevPage="RouteToNewpage(ActualPage-1)"
+                    @RouteToNextPage="RouteToNewpage(ActualPage+1)"
                     ></UiVPagination>
                 </div>
             </section>
@@ -31,10 +31,21 @@ import { useAnimeStore } from '~/stores/Anime';
 const AnimeStore = useAnimeStore()
 const Route = useRoute()
 const Router = useRouter()
+
+definePageMeta({
+    middleware: ["anime-page"]
+})
 useHead({
     title: "Все аниме"
 })
-AnimeStore.GET_ALL_ANIME_FROM_DB(Route.query.page)
+
+let ActualPage = computed(() => {
+    return Number(Route.query.page)
+})
+
+onMounted(()=> {
+    AnimeStore.GET_ALL_ANIME_FROM_DB(ActualPage.value ? ActualPage.value : 1)
+})
 
 function RouteToNewpage(page){
     AnimeStore.GET_ALL_ANIME_FROM_DB(page)

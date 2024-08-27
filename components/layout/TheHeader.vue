@@ -12,7 +12,7 @@
                     <li class="header__menu-item"><a href="#">Страница 3</a></li>
                     <li class="header__menu-item">
                         <NuxtLink to="/">Избранное</NuxtLink>
-                        <div class="header__menu-count">{{ 0 }}</div>
+                        <div class="header__menu-count">{{ UserStore.Favourites.length }}</div>
                     </li>
                 </ul>
             </nav>
@@ -20,6 +20,8 @@
     </header>
 </template>
 <script setup>
+import { useUserStore } from '~/stores/User';
+const UserStore = useUserStore()
 </script>
 <style lang="sass" scoped>
 header

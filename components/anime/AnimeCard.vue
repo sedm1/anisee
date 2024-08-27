@@ -1,6 +1,6 @@
 <template>
     <NuxtLink class="anime__card" :to='{name: `anime-code`, params: {code: AnimeItem.code}}'>
-        <div class="anime__card-img"><img :src="`${useRuntimeConfig().public.AnimeStaticApi}${AnimeItem.posters.original.url}`" alt="AnimeCardImg"></div>
+        <div class="anime__card-img"><img :src="`${useRuntimeConfig().public.AnimeStaticApi}${AnimeItem.posters.small.url}`" alt="AnimeCardImg"></div>
     </NuxtLink>
 </template>
 

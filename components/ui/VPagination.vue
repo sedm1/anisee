@@ -9,7 +9,6 @@
                 <img src="/img/arrow-disable.svg" alt="ArrowIcon" v-if="IsPrevEnable">
                 <img src="/img/arrow-active.svg" alt="ArrowIcon" v-else>
             </button>
-            
             <button 
             class="pagination__button pagination__button-right" 
             :disabled="IsNextEnable"
