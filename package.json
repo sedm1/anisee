@@ -17,7 +17,6 @@
     "pinia": "^2.2.2",
     "video.js": "^8.17.3",
     "vue": "^3.4.38"
-
   },
   "devDependencies": {
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",

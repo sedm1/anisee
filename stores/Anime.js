@@ -25,6 +25,23 @@ export const useAnimeStore = defineStore('AnimeStore', {
                 return err
             }
         },
+        async GET_ANIME_FROM_SEARCH(query){
+            this.IsLoading = true
+            const config = useRuntimeConfig()
+            console.log(query)
+            try{
+                const SearchAnimeResult = await $fetch(`${config.public.AnimeApi}/title/search?search=${query}&items_per_page=15&filter=posters,code,names&page=1`,{
+                    lazy: true,
+                    server: false
+                })
+                console.log(SearchAnimeResult)
+                this.AllAnime = SearchAnimeResult.list
+                this.Pagination = SearchAnimeResult.pagination
+                this.IsLoading = false
+            } catch(err){
+
+            }
+        },
         async GET_ANIME_FROM_CODE(code){
             this.IsLoading = true
             const config = useRuntimeConfig()

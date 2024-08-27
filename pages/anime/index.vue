@@ -11,8 +11,9 @@
                         type="text" 
                         placeholder="Поиск по названию или описанию" 
                         class="main__search-input"
+                        v-model="SearchingAnime"
                         >
-                        <button  class="main__search-button"><img src="/img/search.svg" alt="Search"></button>
+                        <button @click="GetSearchAnime" class="main__search-button"><img src="/img/search.svg" alt="Search"></button>
                     </div>
                     <AnimeBLock :AnimeList="AnimeStore.AllAnime"/>
                     <UiVPagination 
@@ -50,6 +51,11 @@ onMounted(()=> {
 function RouteToNewpage(page){
     AnimeStore.GET_ALL_ANIME_FROM_DB(page)
     Router.push({path: '/anime', query: {page: page}})
+}
+
+let SearchingAnime = ref('')
+function GetSearchAnime(){
+    AnimeStore.GET_ANIME_FROM_SEARCH(SearchingAnime.value)
 }
 </script>
 <style lang="sass" scoped>

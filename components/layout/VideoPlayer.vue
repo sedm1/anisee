@@ -28,8 +28,8 @@
 </template>
 <script setup>
 import 'video.js/dist/video-js.css'
+import "videojs-hotkeys";
 import { VideoPlayer } from '@videojs-player/vue'
-
 const {AnimeData} = defineProps({
   AnimeData: Object
 })
@@ -47,14 +47,12 @@ const episodes = computed(() => {
 const quality = computed(() => {
   return Object.keys(AnimeData.list[1].hls)
 })
-
 function EpisodesSelect(episode){
   CurrentEpisode.value = episode
 }
 function QualitySelect(quality){
   CurrentQuality.value = quality
 }
-
 
 </script>
 
