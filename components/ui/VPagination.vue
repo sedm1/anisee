@@ -22,21 +22,15 @@
         
     </section>
 </template>
-<script setup lang="ts">
-const emit = defineEmits<{
-  (eventName: 'RouteToPrevPage'): void
-  (eventName: 'RouteToNextPage'): void
-}>()
+<script setup>
+const emit = defineEmits(['RouteToPrevPage', 'RouteToNextPage'])
 
 const {paginationData} = defineProps({
-    paginationData: {
-        type: Object,
-        required: true
-    }
+    paginationData: Object
 })
 
 const Route = useRoute()
-const ActualLink = Route.query.page as unknown as number
+const ActualLink = Route.query.page
 
 const IsPrevEnable = computed(() => {
     return ActualLink == 1

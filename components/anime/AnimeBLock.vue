@@ -9,9 +9,7 @@
 </template>
 <script setup>
 const {AnimeList} = defineProps({
-    AnimeList: {
-        type: Array
-    }
+    AnimeList: Array
 })
 </script>
 <style lang="sass" scoped>

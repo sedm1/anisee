@@ -25,7 +25,7 @@
         </main>
     </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { useAnimeStore } from '~/stores/Anime';
 
 const AnimeStore = useAnimeStore()
@@ -34,9 +34,9 @@ const Router = useRouter()
 useHead({
     title: "Все аниме"
 })
-AnimeStore.GET_ALL_ANIME_FROM_DB(Number(Route.query.page))
+AnimeStore.GET_ALL_ANIME_FROM_DB(Route.query.page)
 
-function RouteToNewpage(page: number){
+function RouteToNewpage(page){
     AnimeStore.GET_ALL_ANIME_FROM_DB(page)
     Router.push({path: '/anime', query: {page: page}})
 }
