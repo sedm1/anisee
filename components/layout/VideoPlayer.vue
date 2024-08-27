@@ -28,7 +28,6 @@
 </template>
 <script setup>
 import 'video.js/dist/video-js.css'
-import "videojs-hotkeys";
 import { VideoPlayer } from '@videojs-player/vue'
 const {AnimeData} = defineProps({
   AnimeData: Object
