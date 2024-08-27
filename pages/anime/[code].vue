@@ -22,13 +22,15 @@
 </template>
 <script setup>
 import { useAnimeStore } from '~/stores/Anime';
-
-
 const AnimeStore = useAnimeStore()
 
 const route = useRoute()
 
 AnimeStore.GET_ANIME_FROM_CODE(route.params.code)
+
+useSeoMeta({
+    title: () => AnimeStore.CurrentAnime.names?.ru
+})
 
 onBeforeMount(() => {
     AnimeStore.CurrentAnime = {}
