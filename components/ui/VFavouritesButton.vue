@@ -1,13 +1,13 @@
 <template >
     <button 
     class="favourites__button"
-    v-if="UserStore.Favourites.indexOf(AnimeData) == -1"
-    @click="UserStore.SET_ANIME_TO_FAVOURITES(AnimeData)"
+    v-if="IsAnimeInFav"
+    @click="UserStore.SET_ANIME_TO_FAVOURITES(AnimeData.id)"
     >Добавить в избранное</button>
     <button 
     v-else 
     class="favourites__button favourites__button-delete"
-    @click="UserStore.REMOVE_ANIME_FROM_FAVOURITES(AnimeData)"
+    @click="UserStore.REMOVE_ANIME_FROM_FAVOURITES(AnimeData.id)"
     >
         Удалить из избранного
     </button>
@@ -19,6 +19,9 @@ const {AnimeData} = defineProps({
 })
 const UserStore = useUserStore()
 
+const IsAnimeInFav = computed(() => {
+    return UserStore.Favourites.indexOf(AnimeData.id) == -1 ? true : false
+})
 </script>
 <style lang="sass" scoped>
 .favourites

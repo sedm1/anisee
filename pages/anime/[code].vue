@@ -13,6 +13,12 @@
                         <UiVFavouritesButton
                         :AnimeData="AnimeStore.CurrentAnime"
                         ></UiVFavouritesButton>
+                        <div class="main__franchies" v-if="franchies.length">
+                            <h3 class="main__subtitle">Франшиза</h3>
+                            <LazyAnimeBLock
+                            :AnimeList="franchies"
+                            />
+                        </div>
                     </div>
                 </div>
                 
@@ -36,21 +42,32 @@ const route = useRoute()
 
 AnimeStore.GET_ANIME_FROM_CODE(route.params.code)
 
+
 useSeoMeta({
     title: () => AnimeStore.CurrentAnime.names?.ru
 })
 
+const franchies = computed(() => {
+    if (AnimeStore.CurrentAnime.franchises[0]){
+        AnimeStore.GET_ANIME_FRANSHIES(AnimeStore.CurrentAnime.franchises[0].releases)
+    }
+    
+    return AnimeStore.CurrentAnimeFranchies
+})
+
 onBeforeMount(() => {
     AnimeStore.CurrentAnime = {}
+    AnimeStore.CurrentAnimeFranchies = []
 })
 </script>
 <style lang="sass" scoped>
 .main
+    margin-top: 50px
     &__block
         display: flex
         align-items: flex-start
         gap: 50px
-        margin-top: 40px
+        
     &__img
         max-width: 500px
         width: 100%
@@ -66,4 +83,8 @@ onBeforeMount(() => {
         &-descript
             font-size: 16px
             line-height: 24px
+    &__franchies
+        margin-top: 40px
+    &__subtitle 
+        font-size: 20px
 </style>
