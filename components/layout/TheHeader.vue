@@ -12,7 +12,7 @@
                     <li class="header__menu-item"><a href="#">Страница 3</a></li>
                     <li class="header__menu-item">
                         <NuxtLink to="/favourites">Избранное</NuxtLink>
-                        <div class="header__menu-count">{{ UserStore.Favourites.length }}</div>
+                        <div class="header__menu-count" v-if="UserStore.Favourites.length">{{ UserStore.Favourites.length }}</div>
                     </li>
                 </ul>
             </nav>

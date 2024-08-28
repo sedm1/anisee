@@ -63,14 +63,16 @@ function QualitySelect(quality){
     max-height: 562px
     height: 562px
     margin-top: 40px
-    
-    video 
+    .vjs-tech 
       border: 0 none
       outline: 0 none
+    
   &__settings
     display: flex
+    position: absolute
+    top: 10px
+    left: 10px
     gap: 10px
-    margin: 10px
     transition: visibility 1s, opacity 1s
     visibility: visible
     opacity: 1
