@@ -33,6 +33,23 @@ export default defineNuxtConfig({
       orientation: 'landscape-secondary',
       theme_color: '#3e90f0',
       background_color: '#0a0c0c',
+      id: '/',
+      screenshots: [
+        {
+          src: '/screenshots/pc.png',
+          sizes: "1904x912",
+          type: "image/png",
+          form_factor: "wide",
+          label: "Скриншот главного экрана"
+        }, 
+        {
+          src: '/screenshots/mobile.png',
+          sizes: "517x910",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Скриншот главного экрана"
+        }
+      ],
       icons: [
 		    {
           src: "/icons/icon-36x36.png",
