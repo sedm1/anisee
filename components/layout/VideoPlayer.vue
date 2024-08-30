@@ -4,6 +4,7 @@
       :src="'https://'+AnimeData.host + AnimeData.list[CurrentEpisode].hls[CurrentQuality]"
       :poster="useRuntimeConfig().public.AnimeStaticApi + AnimeData.list[CurrentEpisode].preview ? useRuntimeConfig().public.AnimeStaticApi + AnimeData.list[CurrentEpisode]?.preview : undefined"
       controls
+      @fullscreenchange="OpenFullWindow"
     >
       <template v-slot="">
         <div class="video__settings">
@@ -47,7 +48,13 @@ const episodes = computed(() => {
 const quality = computed(() => {
   return Object.keys(AnimeData.list[1].hls)
 })
-
+function OpenFullWindow(){
+  if (document.fullscreenElement){
+    screen.orientation.lock("landscape")
+  } else {
+    screen.orientation.unlock()
+  }
+}
 
 function EpisodesSelect(episode){
   CurrentEpisode.value = episode
