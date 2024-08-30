@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       short_name: 'Anisee',
       description: 'Платформа для просмотра аниме',
       display: 'fullscreen',
-      orientation: 'landscape-secondary',
+      orientation: 'any',
       theme_color: '#3e90f0',
       background_color: '#0a0c0c',
       id: '/',
