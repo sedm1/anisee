@@ -19,8 +19,8 @@
                 
                 <ul class="header__menu">
                     <li class="header__menu-item"><NuxtLink :to="{path : '/anime', query: {page: 1}}" >Все аниме</NuxtLink></li>
-                    <li class="header__menu-item"><a href="#">Страница 2</a></li>
-                    <li class="header__menu-item"><a href="#">Страница 3</a></li>
+                    <!-- <li class="header__menu-item"><a href="#">Страница 2</a></li>
+                    <li class="header__menu-item"><a href="#">Страница 3</a></li> -->
                     <li class="header__menu-item">
                         <NuxtLink to="/favourites">Избранное</NuxtLink>
                         <div class="header__menu-count" v-if="UserStore.Favourites.length">{{ UserStore.Favourites.length }}</div>
