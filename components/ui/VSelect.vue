@@ -1,5 +1,5 @@
 <template>
-    <div class="custom-select" :tabindex="tabindex" @blur="open = false">
+    <div class="custom-select" :tabindex="tabindex" @blur="open = false" v-if="options?.length">
       <div class="selected" :class="{ open: open }" @click="open = !open">
         {{ selected }}
       </div>
@@ -40,7 +40,7 @@ export default {
     return {
       selected: this.default
         ? this.default
-        : this.options.length > 0
+        : this.options?.length > 0
         ? this.options[0]
         : null,
       open: false,

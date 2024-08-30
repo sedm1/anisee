@@ -36,7 +36,7 @@ const Router = useRouter()
 definePageMeta({
     middleware: ["anime-page"]
 })
-useHead({
+useSeoMeta({
     title: "Все аниме"
 })
 

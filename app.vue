@@ -50,4 +50,7 @@ input
 .section__title
     font-size: 32px
     font-weight: 700
+.section__descript
+    font-size: 16px
+    font-weight: 400
 </style>

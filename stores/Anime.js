@@ -11,7 +11,7 @@ export const useAnimeStore = defineStore('AnimeStore', {
             this.IsLoading = true
             const config = useRuntimeConfig()
             try {
-                const Anime = await $fetch(`${config.public.AnimeApi}/title/updates?items_per_page=15&filter=posters,code,names&page=${page}`,{
+                const Anime = await $fetch(`${config.public.AnimeApi}/title/updates?items_per_page=15&filter=posters,code&page=${page}`,{
                     lazy: true,
                     server: false
                 })
@@ -30,7 +30,7 @@ export const useAnimeStore = defineStore('AnimeStore', {
             this.IsLoading = true
             const config = useRuntimeConfig()
             try{
-                const SearchAnimeResult = await $fetch(`${config.public.AnimeApi}/title/search?search=${query}&items_per_page=15&filter=posters,code,names&page=1`,{
+                const SearchAnimeResult = await $fetch(`${config.public.AnimeApi}/title/search?search=${query}&items_per_page=15&filter=posters,code&page=1`,{
                     lazy: true,
                     server: false
                 })
@@ -62,7 +62,7 @@ export const useAnimeStore = defineStore('AnimeStore', {
             const config = useRuntimeConfig()
             try {
                 for (let i = 0; i < AnimeList.length; i++){
-                    const AnimeInfo = await $fetch(`${config.public.AnimeApi}/title?code=${AnimeList[i].code}&filter=posters,code,names`, {
+                    const AnimeInfo = await $fetch(`${config.public.AnimeApi}/title?code=${AnimeList[i].code}&filter=posters,code`, {
                         lazy: true,
                         server: false
                     })

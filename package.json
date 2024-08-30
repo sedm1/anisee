@@ -14,6 +14,7 @@
     "@pinia/nuxt": "^0.5.4",
     "@videojs-player/vue": "^1.0.0",
     "nuxt": "^3.13.0",
+    "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.2",
     "video.js": "^8.7.13",
     "vue": "^3.4.38"
