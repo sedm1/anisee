@@ -5,24 +5,26 @@
         <main v-else>
             <section class="main">
                 <div class="container">
-                    <h1 class="section__title">Все аниме</h1>
+                    <h1 class="section__title main__title">Все аниме</h1>
                     <div class="main__search">
                         <input 
                         type="text" 
-                        placeholder="Поиск по названию или описанию" 
+                        placeholder="Поиск аниме" 
                         class="main__search-input"
                         v-model="SearchingAnime"
                         >
                         <button @click="GetSearchAnime" class="main__search-button"><img src="/img/search.svg" alt="Search"></button>
                     </div>
                     <AnimeBLock :AnimeList="AnimeStore.AllAnime"/>
-                    <UiVPagination 
+                    
+                </div>
+                
+            </section>
+            <UiVPagination 
                     :paginationData="AnimeStore.Pagination"
                     @RouteToPrevPage="RouteToNewpage(ActualPage-1)"
                     @RouteToNextPage="RouteToNewpage(ActualPage+1)"
-                    ></UiVPagination>
-                </div>
-            </section>
+            ></UiVPagination>
         </main>
     </div>
 </template>
@@ -61,6 +63,7 @@ function GetSearchAnime(){
 <style lang="sass" scoped>
 .main
     margin-top: 50px
+    margin-bottom: 40px
     &__search
         width: 100%
         margin-top: 20px
@@ -80,6 +83,9 @@ function GetSearchAnime(){
             width: 30px
             display: flex
             justify-content: center
-    &__pagination
-        justify-content: center
+@media screen and (max-width: 650px)
+    .main
+        margin-top: 20px
+        &__title
+            font-size: 6vw
 </style>

@@ -40,4 +40,10 @@ const IsAnimeInFav = computed(() => {
         &-delete
             background: $black 
             color: $blue
+@media screen and (max-width: 550px)
+    .favourites
+        &__button
+            padding: 15px 0px
+            width: 100%
+            margin-top: 30px
 </style>

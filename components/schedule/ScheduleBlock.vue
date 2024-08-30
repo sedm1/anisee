@@ -28,14 +28,16 @@
 <script setup>
 import { UseMainStore } from '~/stores/main';
 
+let date = new Date()
 const MainStore = UseMainStore()
 
 onMounted(() => {
-    MainStore.GET_SCHEDULE_ANIME(0)
+    MainStore.GET_SCHEDULE_ANIME(date.getDay() - 1)
 })
 
 const days = ['Понедельник', 'Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье']
-let ActiveTab = ref(0)
+
+let ActiveTab = ref(date.getDay() - 1)
 
 function TabsClicked(id){
     ActiveTab.value = id
@@ -48,10 +50,14 @@ function TabsClicked(id){
         display: flex
         gap: 20px
         margin-top: 40px
+        position: relative
+        align-items: flex-start
     &__tabs
         display: flex
         flex-direction: column
         gap: 10px
+        position: sticky
+        top: 20px
         &-item 
             padding: 12px 20px 
             border: 1px solid $blue 
@@ -67,4 +73,17 @@ function TabsClicked(id){
             display: grid
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
             gap: 20px
+@media screen and (max-width: 900px)
+    .schedule
+        &__main
+            &-block 
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))
+                gap: 10px
+@media screen and (max-width: 650px)
+    .schedule
+        &__block
+            flex-direction: column
+        &__tabs
+            width: 100%
+            position: static
 </style>

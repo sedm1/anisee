@@ -5,7 +5,18 @@
                 <img src="/img/logo.svg" class="header__logo-icon">
                 <h2 class="header__logo-text">AniSee</h2>
             </NuxtLink>
-            <nav class="header__menu-block">
+            <nav 
+            class="header__menu-block"
+            :class="{'header__menu-block-active': IsMenuOpen}"
+            >
+                <div class="header__menu-header">
+                    <NuxtLink to="/" class="header__menu-logo">
+                        <img src="/img/logo.svg" class="header__logo-icon">
+                        <h2 class="header__logo-text">AniSee</h2>
+                    </NuxtLink>
+                    <button class="header__menu-button" @click='IsMenuOpen = false'><img src="/img/close.svg" alt="HeaderClose"></button>
+                </div>
+                
                 <ul class="header__menu">
                     <li class="header__menu-item"><NuxtLink :to="{path : '/anime', query: {page: 1}}" >Все аниме</NuxtLink></li>
                     <li class="header__menu-item"><a href="#">Страница 2</a></li>
@@ -16,12 +27,15 @@
                     </li>
                 </ul>
             </nav>
+            <button @click='IsMenuOpen = true' class="header__button"><img src="/img/burger.svg" alt="HeaderButton"></button>
         </div>
     </header>
 </template>
 <script setup>
 import { useUserStore } from '~/stores/User';
 const UserStore = useUserStore()
+
+let IsMenuOpen = ref(false)
 </script>
 <style lang="sass" scoped>
 header
@@ -31,6 +45,8 @@ header
         align-items: center
         justify-content: space-between
 .header
+    &__button 
+        display: none
     &__logo
         display: flex
         align-items: center
@@ -76,6 +92,8 @@ header
         display: flex
         align-items: center
         gap: 40px
+        &-header
+            display: none
         &-item 
             font-size: 16px
             font-weight: 500
@@ -106,4 +124,38 @@ header
             justify-content: center
             border-radius: 100%
             padding-bottom: 2px
+@media screen and (max-width: 900px)
+    .header
+        &__button 
+            display: block
+            width: 30px
+        &__menu
+            flex-direction: column
+            align-items: flex-start
+            margin-top: 40px
+            gap: 30px
+            &-header 
+                display: flex
+                align-items: center
+                justify-content: space-between
+            &-button 
+                width: 20px
+            &-logo 
+                
+                display: flex
+                align-items: center
+                gap: 10px
+            &-block 
+                position: fixed
+                top: 0px
+                left: -110%
+                z-index: 5
+                max-width: 320px
+                width: 100%
+                height: 100dvh
+                background: $black
+                padding: 20px
+                transition: .3s
+                &-active 
+                    left: 0
 </style>

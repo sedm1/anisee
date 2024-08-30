@@ -50,7 +50,9 @@ input
 .section__title
     font-size: 32px
     font-weight: 700
-.section__descript
-    font-size: 16px
-    font-weight: 400
+@media screen and (max-width: 900px)
+    section
+        margin-bottom: 60px
+    .section__title
+        font-size: 5vw
 </style>

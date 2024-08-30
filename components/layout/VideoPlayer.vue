@@ -2,7 +2,7 @@
     <VideoPlayer
       :volume="1"
       :src="'https://'+AnimeData.host + AnimeData.list[CurrentEpisode].hls[CurrentQuality]"
-      :poster="useRuntimeConfig().public.AnimeStaticApi + AnimeData.list[CurrentEpisode].preview"
+      :poster="useRuntimeConfig().public.AnimeStaticApi + AnimeData.list[CurrentEpisode].preview ? useRuntimeConfig().public.AnimeStaticApi + AnimeData.list[CurrentEpisode]?.preview : undefined"
       controls
     >
       <template v-slot="">
@@ -43,9 +43,12 @@ const episodes = computed(() => {
   }
   return list
 })
+
 const quality = computed(() => {
   return Object.keys(AnimeData.list[1].hls)
 })
+
+
 function EpisodesSelect(episode){
   CurrentEpisode.value = episode
 }
@@ -80,4 +83,13 @@ function QualitySelect(quality){
   .video__settings
     visibility: hidden
     opacity: 0
+@media screen and (max-width: 1000px)
+  .video
+    &-js 
+      max-width: 100%
+@media screen and (max-width: 650px)
+  .video
+      &-js 
+        height: 300px
+        margin-top: 20px
 </style>

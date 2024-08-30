@@ -6,26 +6,40 @@
                 <video src='/video/main__bg.mp4'
                 muted
                 autoplay
-                
-                >
-
-                </video>
+                ></video>
                 <div class="main__bg">
-                    <h1 class="main__title">AniSee - сервис просмотра аниме онлайн</h1>
-                    <p class="main__descript">Смотреть аниме онлайн в хорошем качестве без рекламы</p>
-                    <NuxtLink to="/anime" class='main__link'>Смотреть онлайн</NuxtLink>
+                    <div class="container">
+                        <div class="main__block">
+                            <h1 class="main__title">AniSee - сервис просмотра аниме онлайн</h1>
+                            <p class="main__descript">Смотреть аниме онлайн в хорошем качестве без рекламы</p>
+                            <NuxtLink to="/anime" class='main__link'>Смотреть онлайн</NuxtLink>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
             </section>
             <section class="last">
                 <div class="container">
                     <h2 class="section__title">Последние обновления и релизы</h2>
                     <LazySwiper
-                    :slides-per-view="4"
+                    :slides-per-view="1"
                     :loop="true"
                     class="last__slider"
                     :space-between="20"
                     navigation
                     :modules="[Navigation]"
+                    :breakpoints="{
+                        '550': {
+                            slidesPerView: 2,
+                        },
+                        '750': {
+                            slidesPerView: 3,
+                        },
+                        '1100': {
+                            slidesPerView: 4,
+                        }
+                    }"
                     >
                         <SwiperSlide v-for="LastUpdatedAnime in MainStore.LastUpdatedAnime" 
                         :key="LastUpdatedAnime.code">
@@ -87,6 +101,11 @@ video
         width: 100%
         height: 100%
         background: rgba(0, 0, 0, .6)
+    .container
+        height: 100%
+    &__block
+        width: 100%
+        height: 100%
         display: flex
         align-items: center
         justify-content: center
@@ -143,4 +162,18 @@ video
         transform: rotate(180deg)
     :deep(.swiper-button-prev::after), :deep(.swiper-button-next::after)
         display: none
+@media screen and (max-width: 900px)
+    .main
+        &__title
+            font-size: 6.8vw
+        &__descript
+            font-size: 2.5vw
+    .last
+        &__slider
+            padding-top: 20px
+@media screen and (max-width: 650px)
+    .main
+        &__link
+            padding: 15px 0px
+            width: 100%
 </style>

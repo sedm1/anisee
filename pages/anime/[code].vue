@@ -54,7 +54,6 @@ const franchies = computed(() => {
     
     return AnimeStore.CurrentAnimeFranchies
 })
-
 onBeforeMount(() => {
     AnimeStore.CurrentAnime = {}
     AnimeStore.CurrentAnimeFranchies = []
@@ -85,6 +84,24 @@ onBeforeMount(() => {
             line-height: 24px
     &__franchies
         margin-top: 40px
+        :deep(.anime__block)
+            margin-top: 20px
     &__subtitle 
         font-size: 20px
+@media screen and (max-width: 900px)
+    .main
+        margin-top: 20px
+        &__block 
+            flex-direction: column
+            align-items: center
+            gap: 30px
+        &__img
+            max-width: 300px
+@media screen and (max-width: 550px)
+    .main
+        &__img
+            max-width: 90%
+        &__info
+            &-title 
+                font-size: 6.5vw
 </style>

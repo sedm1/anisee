@@ -9,6 +9,11 @@
                 <img src="/img/arrow-disable.svg" alt="ArrowIcon" v-if="IsPrevEnable">
                 <img src="/img/arrow-active.svg" alt="ArrowIcon" v-else>
             </button>
+            <div class="pagination__main">
+                <p class="pagination__main-item">1 </p>
+                <p class="pagination__main-current">{{paginationData.current_page}}</p>
+                <p class="pagination__main-item">{{paginationData.pages  }}</p>
+            </div>
             <button 
             class="pagination__button pagination__button-right" 
             :disabled="IsNextEnable"
@@ -41,13 +46,32 @@ const IsNextEnable = computed(() => {
 </script>
 <style lang="sass" scoped>
 .pagination
-    margin-top: 20px
+    margin: 20px auto
+    max-width: 350px
+    width: 100%
     .container
         display: flex
         align-items: center
         justify-content: center
-        gap: 100px
+        gap: 20px
+    &__main
+        display: flex
+        align-items: center
+        justify-content: space-between
+        width: 100%
+        &-item 
+            font-size: 16px
+            font-weight: 500
+        &-current 
+            color: $blue
+            font-size: 16px
+            font-weight: 500
     &__button
+        min-width: 30px
+        width: 30px
         &-right
             transform: rotate(180deg)
+@media screen and (max-width: 650px)
+    .pagination
+        max-width: 100%
 </style>
