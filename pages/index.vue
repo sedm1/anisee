@@ -3,12 +3,13 @@
         <LayoutTheHeader/>
         <main>
             <section class="main">
-                <VideoPlayer
-                :muted="true"
-                :src="'/video/main__bg.mp4'"
-                :controls="false"
-                :autoplay="true"
-                ></VideoPlayer>
+                <video src='/video/main__bg.mp4'
+                muted
+                autoplay
+                
+                >
+
+                </video>
                 <div class="main__bg">
                     <h1 class="main__title">AniSee - сервис просмотра аниме онлайн</h1>
                     <p class="main__descript">Смотреть аниме онлайн в хорошем качестве без рекламы</p>
@@ -43,10 +44,8 @@
     </div>
 </template>
 <script setup>
-import 'video.js/dist/video-js.css'
 import 'swiper/css/navigation';
 
-import { VideoPlayer } from '@videojs-player/vue'
 import { UseMainStore } from '~/stores/main';
 import { Navigation} from 'swiper/modules';
 
@@ -69,7 +68,7 @@ header
     left: 0
     width: 100%
     z-index: 3
-.video-js
+video
     max-width: 100%
     height: 100%
     position: absolute
@@ -77,8 +76,7 @@ header
     top: 0
     left: 0
     z-index: -1
-    :deep(.vjs-tech)
-        object-fit: cover
+    object-fit: cover
 .main
     width: 100%
     height: 100vh
