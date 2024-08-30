@@ -3,9 +3,8 @@
 </script>
 
 <template>
-  <div>
+    <VitePwaManifest />
     <NuxtPage />
-  </div>
 </template>
 <style lang="sass">
 *
